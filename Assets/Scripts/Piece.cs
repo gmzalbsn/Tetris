@@ -74,6 +74,18 @@ public class Piece : MonoBehaviour
     private void Step()
     {
         stepTime=Time.time+stepDelay;
+        Move(Vector2Int.down);
+        if (lockTime >= lockDelay)
+        {
+            Lock();
+        }
+    }
+
+    private void Lock()
+    {
+       board.Set(this);
+       board.ClearLines();
+       board.SpawnPiece();
     }
 
     private void HardDrop()
@@ -82,6 +94,7 @@ public class Piece : MonoBehaviour
         {
             continue;
         }
+        Lock() ;
     }
 
     private bool Move(Vector2Int translation)
