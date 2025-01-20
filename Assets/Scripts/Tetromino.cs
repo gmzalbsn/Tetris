@@ -15,5 +15,10 @@ public enum Tetromino
 public struct TetrominoData
 {
     public Tetromino tetromino;
-    public Vector2Int[] cells;
+    public Vector2Int[] cells { get;private set; }
+
+    public void Initialize()
+    {
+        cells = Data.Cells[tetromino];
+    }
 }
