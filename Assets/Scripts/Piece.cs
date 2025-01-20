@@ -26,6 +26,15 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
+        board.Clear(this);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Rotate(-1);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            Rotate(1);
+        }
         if (Input.GetKeyDown(KeyCode.A))
         {
             Move(Vector2Int.left);
@@ -34,12 +43,42 @@ public class Piece : MonoBehaviour
         {
             Move(Vector2Int.right);
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Move(Vector2Int.down);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            HardDrop();
+        }
+        board.Set(this);
+        
     }
 
-    private void Move(Vector2Int translation)
+    private void HardDrop()
+    {
+        while (Move(Vector2Int.down))
+        {
+            continue;
+        }
+    }
+
+    private bool Move(Vector2Int translation)
     {
        Vector3Int newPosition = position;
        newPosition.x += translation.x;
        newPosition.y += translation.y;
+       bool valid = board.IsValidPosition(this,newPosition);
+       if (valid)
+       {
+           position = newPosition;
+       }
+       return valid;
+    }
+
+    private void Rotate(int direction)
+    {
+        
     }
 }
