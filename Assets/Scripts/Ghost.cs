@@ -56,7 +56,9 @@ public class Ghost : MonoBehaviour
 
             if (mainBoard.IsValidPosition(trackingPiece, position)) {
                 this.position = position;
-            } else {
+            } 
+            else 
+            {
                 break;
             }
         }

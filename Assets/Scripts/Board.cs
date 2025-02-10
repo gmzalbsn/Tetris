@@ -12,7 +12,8 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize=new Vector2Int(10,20);
-
+    public TetrominoData currentData{ get; private set; }
+    
     public RectInt Bounds
     {
         get
@@ -39,8 +40,8 @@ public class Board : MonoBehaviour
     public void SpawnPiece()
     {
         int random=Random.Range(0,tetrominoes.Length);
-        TetrominoData data = tetrominoes[random];
-        activePiece.Initialize(this,spawnPosition,data);
+        currentData = tetrominoes[random];
+        activePiece.Initialize(this,spawnPosition,currentData);
         if (IsValidPosition(activePiece, spawnPosition))
         {
             Set(activePiece);

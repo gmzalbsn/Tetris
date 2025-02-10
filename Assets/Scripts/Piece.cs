@@ -1,11 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Piece : MonoBehaviour
 {
     public Board board { get;private set; }
-    public TetrominoData data { get;private set; }
+    public TetrominoData data { get; set; }
     public Vector3Int [] cells { get;private set; }
     public Vector3Int position { get;private set; }
     public int rotationIndex{ get;private set; }
@@ -62,7 +63,6 @@ public class Piece : MonoBehaviour
         {
             HardDrop();
         }
-
         if (Time.time>=stepTime)
         {
             Step();
@@ -70,7 +70,6 @@ public class Piece : MonoBehaviour
         board.Set(this);
         
     }
-
     private void Step()
     {
         stepTime=Time.time+stepDelay;
@@ -107,6 +106,7 @@ public class Piece : MonoBehaviour
        {
            position = newPosition;
            lockTime = 0f;
+           Debug.Log("Piece moved to: " + position);
        }
        return valid;
     }
@@ -117,6 +117,7 @@ public class Piece : MonoBehaviour
         rotationIndex= Wrap(rotationIndex+direction,0,4);
         ApplyRotationMatrix(direction);
 
+        Debug.Log("Rotating Piece: " + rotationIndex);
         if (!TestWallKicks(rotationIndex,direction))
         {
             rotationIndex=originalRotationIndex;
